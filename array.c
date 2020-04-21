@@ -60,12 +60,38 @@ void ArrayDelete(struct Array *arr) {
   free(arr);
 }
 
-void ArrayAppend(struct Array *arr, int value[], int numOfValues) {
+void ArrayAppend(struct Array *arr, int value) {
+  ArrayCheckOverflow(arr, 1);
+  arr->A[arr->length] = value;
+  arr->length++;
+}
+
+void ArrayAppendValues(struct Array *arr, int value[], int numOfValues) {
   ArrayCheckOverflow(arr, numOfValues);
   for(int i =0; i < numOfValues; i++) {
     arr->A[arr->length] = value[i];
     arr->length++;
   }
+}
+
+void ArrayInsert(struct Array *arr, int index, int value) {
+  if(index >= arr->length) {
+    ArrayAppend(arr, value);
+    return;
+  }
+  // Convert negative indices to their positive equivalent
+  while(index < 0) {
+    index = arr->length + index + 1;
+  }
+
+  ArrayCheckOverflow(arr,1);
+  int i = arr->length - 1;
+  while(i >= index) {
+    arr->A[i+1] = arr->A[i];
+    i--;
+  }
+  arr->A[index] = value;
+  arr->length++;
 }
 
 int main() {
@@ -85,8 +111,10 @@ int main() {
   */
 
   int test[5] = {1,2,3,4,5};
-  ArrayAppend(arr, test, 5);
-  ArrayAppend(arr, test, 5);
+  ArrayAppendValues(arr, test, 5);
+  ArrayAppendValues(arr, test, 5);
+  ArrayInsert(arr, -12, 100);
+
   printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
 
   ArrayDisplay(*arr);
