@@ -1,9 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define ARRAY_INITIAL_SIZE 16
+
 /*
  * As part of learning data structures, the goal is to implement
  * a dynamic array that has some conveniences you'd see in a higher level language
+
+ Right now you want to call create to initialize it, delete to remove it when done.
  */
 
 struct Array {
@@ -43,14 +47,32 @@ void checkOverflow(struct Array *arr, int newValues) {
   }
 }
 
-int main() {
-  struct Array *arr;
-  int n,i;
-  printf("Enter size of array: ");
-  scanf("%d", &arr->size);
-  arr->A = (int *) malloc(arr->size * sizeof(int));
+struct Array* create() {
+  struct Array *arr = (struct Array*)malloc(sizeof(struct Array));
+  arr->size = ARRAY_INITIAL_SIZE;
   arr->length = 0;
+  arr->A = (int *)malloc(arr->size * sizeof(int));
+  return arr;
+}
 
+void delete(struct Array *arr) {
+  free(arr->A);
+  free(arr);
+}
+
+void append(struct Array *arr, int value[], int numOfValues) {
+  checkOverflow(arr, numOfValues);
+  for(int i =0; i < numOfValues; i++) {
+    arr->A[arr->length] = value[i];
+    arr->length++;
+  }
+}
+
+int main() {
+  int n,i;
+  struct Array *arr = create();
+
+  /*
   printf("Enter how many numbers: ");
   scanf("%d",&n);
   checkOverflow(arr, n);
@@ -60,9 +82,11 @@ int main() {
   for(i=0;i<n;i++) {
     scanf("%d", &arr->A[i]);
   }
+  */
 
-
-
+  int test[5] = {1,2,3,4,5};
+  append(arr, test, 5);
+  append(arr, test, 5);
   printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
 
   Display(*arr);
