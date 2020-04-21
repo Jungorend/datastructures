@@ -16,7 +16,7 @@ struct Array {
   int length;
 };
 
-void Display(struct Array arr) {
+void ArrayDisplay(struct Array arr) {
   int i;
   printf("Elements are\n");
   for(i=0;i<arr.length;i++) {
@@ -24,7 +24,7 @@ void Display(struct Array arr) {
   }
 }
 
-void checkOverflow(struct Array *arr, int newValues) {
+void ArrayCheckOverflow(struct Array *arr, int newValues) {
   // This function checks to see if the newValues worth of elements
   // will cause it to access un-allocated space, and if so resolves it
   if(arr->size < (arr->length + newValues)) {
@@ -47,7 +47,7 @@ void checkOverflow(struct Array *arr, int newValues) {
   }
 }
 
-struct Array* create() {
+struct Array* ArrayCreate() {
   struct Array *arr = (struct Array*)malloc(sizeof(struct Array));
   arr->size = ARRAY_INITIAL_SIZE;
   arr->length = 0;
@@ -55,13 +55,13 @@ struct Array* create() {
   return arr;
 }
 
-void delete(struct Array *arr) {
+void ArrayDelete(struct Array *arr) {
   free(arr->A);
   free(arr);
 }
 
-void append(struct Array *arr, int value[], int numOfValues) {
-  checkOverflow(arr, numOfValues);
+void ArrayAppend(struct Array *arr, int value[], int numOfValues) {
+  ArrayCheckOverflow(arr, numOfValues);
   for(int i =0; i < numOfValues; i++) {
     arr->A[arr->length] = value[i];
     arr->length++;
@@ -70,7 +70,7 @@ void append(struct Array *arr, int value[], int numOfValues) {
 
 int main() {
   int n,i;
-  struct Array *arr = create();
+  struct Array *arr = ArrayCreate();
 
   /*
   printf("Enter how many numbers: ");
@@ -85,11 +85,11 @@ int main() {
   */
 
   int test[5] = {1,2,3,4,5};
-  append(arr, test, 5);
-  append(arr, test, 5);
+  ArrayAppend(arr, test, 5);
+  ArrayAppend(arr, test, 5);
   printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
 
-  Display(*arr);
+  ArrayDisplay(*arr);
 
   return 0;
 }
