@@ -94,6 +94,15 @@ void ArrayInsert(struct Array *arr, int index, int value) {
   arr->length++;
 }
 
+void ArrayRemoveValue(struct Array *arr, int index) {
+  while(index < 0)
+    index = arr->length + index;
+  for(;index < arr->length; index++) {
+    arr->A[index] = arr->A[index+1];
+  }
+  arr->length = arr->length - 1;
+}
+
 int main() {
   int n,i;
   struct Array *arr = ArrayCreate();
@@ -102,6 +111,7 @@ int main() {
   ArrayAppendValues(arr, test, 5);
   ArrayAppendValues(arr, test, 5);
   ArrayInsert(arr, -12, 100);
+  ArrayRemoveValue(arr, -1);
 
   printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
 
