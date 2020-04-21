@@ -16,11 +16,11 @@ struct Array {
   int length;
 };
 
-void ArrayDisplay(struct Array arr) {
+void ArrayDisplay(struct Array *arr) {
   int i;
   printf("Elements are\n");
-  for(i=0;i<arr.length;i++) {
-    printf("%d ", arr.A[i]);
+  for(i=0;i<arr->length;i++) {
+    printf("%d ", arr->A[i]);
   }
 }
 
@@ -98,18 +98,6 @@ int main() {
   int n,i;
   struct Array *arr = ArrayCreate();
 
-  /*
-  printf("Enter how many numbers: ");
-  scanf("%d",&n);
-  checkOverflow(arr, n);
-  arr->length = arr->length + n;
-
-  printf("Enter all elements: ");
-  for(i=0;i<n;i++) {
-    scanf("%d", &arr->A[i]);
-  }
-  */
-
   int test[5] = {1,2,3,4,5};
   ArrayAppendValues(arr, test, 5);
   ArrayAppendValues(arr, test, 5);
@@ -117,7 +105,7 @@ int main() {
 
   printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
 
-  ArrayDisplay(*arr);
+  ArrayDisplay(arr);
 
   return 0;
 }
