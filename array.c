@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "array.h"
 
-#define ARRAY_INITIAL_SIZE 16
 
 /*
  * As part of learning data structures, the goal is to implement
@@ -9,12 +9,6 @@
 
  Right now you want to call create to initialize it, delete to remove it when done.
  */
-
-struct Array {
-  int *A;
-  int size;
-  int length;
-};
 
 void ArrayDisplay(struct Array *arr) {
   int i;
@@ -103,19 +97,11 @@ void ArrayRemoveValue(struct Array *arr, int index) {
   arr->length = arr->length - 1;
 }
 
-int main() {
-  int n,i;
-  struct Array *arr = ArrayCreate();
-
-  int test[5] = {1,2,3,4,5};
-  ArrayAppendValues(arr, test, 5);
-  ArrayAppendValues(arr, test, 5);
-  ArrayInsert(arr, -12, 100);
-  ArrayRemoveValue(arr, -1);
-
-  printf("Size of array: %d\nLength of Array: %d\n", arr->size, arr->length);
-
-  ArrayDisplay(arr);
-
-  return 0;
+// Returns the first instance of value, if none, -1.
+int ArrayLinearSearch(struct Array *arr, int value) {
+  for (int i =0; i < arr->length; i++) {
+    if (arr->A[i] == value)
+      return i;
+  }
+  return -1;
 }
