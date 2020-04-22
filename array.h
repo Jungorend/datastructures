@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 // The starting array size
 #define ARRAY_INITIAL_SIZE 16
