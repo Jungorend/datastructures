@@ -19,3 +19,4 @@ void ArrayAppendValues(struct Array *arr, int value[], int numOfValues);
 void ArrayInsert(struct Array *arr, int index, int value);
 void ArrayRemoveValue(struct Array *arr, int index);
 int ArrayLinearSearch(struct Array *arr, int value);
+int ArrayBinarySearch(struct Array *arr, int value);

@@ -103,3 +103,25 @@ int ArrayLinearSearch(struct Array *arr, int value) {
   }
   return -1;
 }
+
+
+int ArrayBinarySearch(struct Array *arr, int value) {
+  int h=arr->length-1;
+  int l = 0;
+  int mid;
+  int output;
+
+  while(l <= h) {
+    mid = ((h-l) / 2) + l;
+    output = arr->A[mid];
+
+    if(output == value) {
+      return mid;
+    } else if (output > value) {
+      h = mid - 1;
+    } else {
+      l = mid + 1;
+    }
+  }
+  return -1;
+}
