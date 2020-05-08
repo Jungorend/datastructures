@@ -104,7 +104,6 @@ int ArrayLinearSearch(struct Array *arr, int value) {
   return -1;
 }
 
-
 int ArrayBinarySearch(struct Array *arr, int value) {
   int h=arr->length-1;
   int l = 0;
@@ -124,4 +123,45 @@ int ArrayBinarySearch(struct Array *arr, int value) {
     }
   }
   return -1;
+}
+
+int ArrayMax(struct Array *arr) {
+  int max = arr->A[0];
+  for (int i=0; i < arr->length; i++) {
+    if (arr->A[i] > max)
+      max = arr->A[i];
+  }
+  return max;
+}
+
+int ArrayMin(struct Array *arr) {
+  int min = arr->A[0];
+  for (int i=0; i < arr->length; i++) {
+    if(arr->A[i] < min)
+      min = arr->A[i];
+  }
+  return min;
+}
+
+int ArraySum(struct Array *arr) {
+  int result = 0;
+  for(int i=0; i < arr->length; i++) {
+    result = result + arr->A[i];
+  }
+  return result;
+}
+
+int ArrayAverage (struct Array * arr) {
+  int sum = ArraySum(arr);
+  return sum / arr->length;
+}
+
+bool ArrayIsSorted (struct Array * arr) {
+  int x = arr->A[0];
+  for (int i=1; i < arr->length; i++) {
+    if(x > arr->A[i])
+      return false;
+    x = arr->A[i];
+  }
+  return true;
 }
