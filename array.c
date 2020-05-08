@@ -16,9 +16,11 @@ void ArrayDisplay(struct Array *arr) {
   }
 }
 
+// This function checks to see if the newValues worth of elements
+// will cause it to access un-allocated space, and if so resolves it
+// Right now it increases in size by twice its previous. Seemed an ok tradeoff
+// could be dangerous
 void ArrayCheckOverflow(struct Array *arr, int newValues) {
-  // This function checks to see if the newValues worth of elements
-  // will cause it to access un-allocated space, and if so resolves it
   if(arr->size < (arr->length + newValues)) {
     int *tmpA;
     int tmpSize = arr->size;
@@ -50,6 +52,7 @@ struct Array* ArrayCreate() {
 void ArrayDelete(struct Array *arr) {
   free(arr->A);
   free(arr);
+  arr = 0;
 }
 
 void ArrayAppend(struct Array *arr, int value) {
@@ -189,5 +192,69 @@ struct Array * ArrayMerge(struct Array * arr1, struct Array *arr2) {
     ArrayAppend(result, arr2->A[j]);
     j++;
   }
+  return result;
+}
+
+// ------------------------------------------
+// These are all set operations and are expecting
+// to operate on sorted arrays. No checking done at this point.
+
+struct Array* ArrayUnion(struct Array *arr1, struct Array *arr2) {
+  int i=0,j=0;
+  struct Array *result = ArrayCreate();
+
+  while(i < arr1->length && j < arr2->length) {
+    if (arr1->A[i] < arr2->A[j]) {
+      ArrayAppend(result, arr1->A[i++]);
+    } else if (arr2->A[j] < arr1->A[i]) {
+      ArrayAppend(result, arr2->A[j++]);
+    } else {
+      ArrayAppend(result, arr1->A[i++]);
+      j++;
+    }
+  }
+  for(; i < arr1->length;i++)
+    ArrayAppend(result, arr1->A[i]);
+  for(; j < arr2->length; j++)
+    ArrayAppend(result, arr2->A[j]);
+  return result;
+}
+
+
+struct Array* ArrayIntersection(struct Array *arr1, struct Array *arr2) {
+  int i=0,j=0;
+  struct Array *result = ArrayCreate();
+
+  while(i < arr1->length && j < arr2->length) {
+    if (arr1->A[i] < arr2->A[j]) {
+      i++;
+    } else if (arr2->A[j] < arr1->A[i]) {
+      j++;
+    } else {
+      ArrayAppend(result, arr1->A[i++]);
+      j++;
+    }
+  }
+  return result;
+}
+
+struct Array* ArrayDifference(struct Array *arr1, struct Array *arr2) {
+  int i=0,j=0;
+  struct Array *result = ArrayCreate();
+
+  while(i < arr1->length && j < arr2->length) {
+    if (arr1->A[i] < arr2->A[j]) {
+      ArrayAppend(result, arr1->A[i++]);
+    } else if (arr2->A[j] < arr1->A[i]) {
+      ArrayAppend(result, arr2->A[j++]);
+    } else {
+      i++;
+      j++;
+    }
+  }
+  for(; i < arr1->length;i++)
+    ArrayAppend(result, arr1->A[i]);
+  for(; j < arr2->length; j++)
+    ArrayAppend(result, arr2->A[j]);
   return result;
 }

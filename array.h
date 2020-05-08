@@ -27,3 +27,10 @@ int ArraySum(struct Array *arr);
 int ArrayAverage(struct Array *arr);
 bool ArrayIsSorted(struct Array *arr);
 struct Array* ArrayMerge(struct Array *arr1, struct Array *arr2);
+
+// Set Operations
+//
+// Requires sorted unique arrays
+struct Array* ArrayUnion(struct Array *arr1, struct Array *arr2);
+struct Array* ArrayIntersection(struct Array *arr1, struct Array *arr2);
+struct Array* ArrayDifference(struct Array *arr1, struct Array *arr2);
