@@ -165,3 +165,29 @@ bool ArrayIsSorted (struct Array * arr) {
   }
   return true;
 }
+
+// This one requires both lists to be sorted. It does not presently
+// check for this in advance.
+// It will simply combine randomly if not sorted.
+struct Array * ArrayMerge(struct Array * arr1, struct Array *arr2) {
+  int i=0,j=0;
+  struct Array *result = ArrayCreate();
+  while(i < arr1->length && j < arr2->length) {
+    if (arr1->A[i] < arr2->A[j] ) {
+      ArrayAppend(result, arr1->A[i]);
+      i++;
+    } else {
+      ArrayAppend(result, arr2->A[j]);
+      j++;
+    }
+  }
+  while(i < arr1->length) {
+    ArrayAppend(result, arr1->A[i]);
+    i++;
+  }
+  while(j < arr2->length) {
+    ArrayAppend(result, arr2->A[j]);
+    j++;
+  }
+  return result;
+}

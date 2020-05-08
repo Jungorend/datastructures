@@ -26,3 +26,4 @@ int ArrayMin(struct Array *arr);
 int ArraySum(struct Array *arr);
 int ArrayAverage(struct Array *arr);
 bool ArrayIsSorted(struct Array *arr);
+struct Array* ArrayMerge(struct Array *arr1, struct Array *arr2);

@@ -2,22 +2,17 @@
 
 int main() {
   int n,i;
-  struct Array *arr = ArrayCreate();
+  struct Array *arr1 = ArrayCreate();
+  struct Array *arr2 = ArrayCreate();
 
-  int test[9] = {1,2,3,4,5,7,8,9,10};
-  ArrayAppendValues(arr, test, 9);
+  int test[5] = {1,3,5,9,10};
+  int test2[7] = {2,4,6,7,11,12,13};
+  ArrayAppendValues(arr1, test, 5);
+  ArrayAppendValues(arr2, test2, 7);
 
-  if(ArrayIsSorted(arr))
-    printf("Sorted\n");
-  else
-    printf("Not Sorted\n");
+  struct Array *arr3 = ArrayMerge(arr1, arr2);
+  ArrayDisplay(arr3);
 
-
-  ArrayAppendValues(arr, test, 2);
-  if(ArrayIsSorted(arr))
-    printf("Sorted\n");
-  else
-    printf("Not Sorted\n");
 
   return 0;
 }
