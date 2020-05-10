@@ -1,16 +1,9 @@
-#include "matrix.h"
+#include "linkedlist.h"
 
 int main() {
-  struct Matrix *x = DiagonalMatrixCreate(5);
+  int A[6] = {10,13,5,4,3,2};
+  struct LL *l = createLL(A,6);
 
-  DiagonalMatrixSet(x, 1,1,1);
-  DiagonalMatrixSet(x, 2,2,2);
-  DiagonalMatrixSet(x, 4,4,4);
-  DiagonalMatrixSet(x, 5,5,7);
-
-  MatrixPrint(x, DiagonalMatrixGet);
-
-  MatrixDestroy(x);
-
+  LLDisplay(l);
   return 0;
 }
