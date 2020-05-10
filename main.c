@@ -1,7 +1,7 @@
 #include "matrix.h"
 
 int main() {
-  struct Matrix *x = MatrixCreate(5);
+  struct Matrix *x = DiagonalMatrixCreate(5);
 
   DiagonalMatrixSet(x, 1,1,1);
   DiagonalMatrixSet(x, 2,2,2);

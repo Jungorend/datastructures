@@ -1,11 +1,5 @@
 #include "matrix.h"
 
-struct Matrix* MatrixCreate(int size) {
-  struct Matrix *x = malloc(sizeof(struct Matrix));
-  x->length = size;
-  x->m = malloc(x->length * sizeof(int));
-  return x;
-}
 
 void MatrixDestroy(struct Matrix *x) {
   free(x->m);
@@ -13,16 +7,25 @@ void MatrixDestroy(struct Matrix *x) {
   x = 0;
 }
 
-void MatrixPrint(struct Matrix *x, int (*f)(struct Matrix *x, int i, int j)) {
+// This function takes the the <X>MatrixGet function for whatever you want to display
+// So for a Diagonal, DiagonalMatrixGet
+// It will then display appropriately for that matrix
+void MatrixPrint(struct Matrix *x, int getValue(struct Matrix *x, int i, int j)) {
   for(int i = 0; i < x->length; i++) {
     for (int j = 0; j < x->length; j++) {
-      printf("%d ", (*f)(x, i, j));
+      printf("%d ", getValue(x, i, j));
     }
     printf("\n");
   }
 }
 
 // Diagonal Matrix
+struct Matrix* DiagonalMatrixCreate(int size) {
+  struct Matrix *x = malloc(sizeof(struct Matrix));
+  x->length = size;
+  x->m = malloc(x->length * sizeof(int));
+  return x;
+}
 void DiagonalMatrixSet(struct Matrix *x, int i, int j, int value) {
   if(i == j) {
     x->m[i-1] = value;
@@ -37,6 +40,13 @@ int DiagonalMatrixGet(struct Matrix *x, int i, int j) {
 }
 
 // Lower Triangular Matrix
+struct Matrix* LowerTriMatrixCreate(int size) {
+  struct Matrix *x = malloc(sizeof(struct Matrix));
+  x->length = size * (size - 1) / 2;
+  x->m = malloc(x->length * sizeof(int));
+  return x;
+}
+
 void LowerTriMatrixSet(struct Matrix *x, int i, int j, int value) {
   if(i >= j) {
     x->m[i*(i-1)/2 + j-1] = value;
