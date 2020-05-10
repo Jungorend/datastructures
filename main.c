@@ -1,18 +1,16 @@
-#include "array.h"
+#include "matrix.h"
 
 int main() {
-  int n,i;
-  struct Array *arr1 = ArrayCreate();
-  struct Array *arr2 = ArrayCreate();
+  struct Matrix *x = MatrixCreate(5);
 
-  int test[5] = {1,3,6,9,10};
-  int test2[7] = {2,4,6,7,11,12,13};
-  ArrayAppendValues(arr1, test, 5);
-  ArrayAppendValues(arr2, test2, 7);
+  DiagonalMatrixSet(x, 1,1,1);
+  DiagonalMatrixSet(x, 2,2,2);
+  DiagonalMatrixSet(x, 4,4,4);
+  DiagonalMatrixSet(x, 5,5,7);
 
-  struct Array *arr3 = ArrayIntersection(arr1, arr2);
-  ArrayDisplay(arr3);
+  MatrixPrint(x, DiagonalMatrixGet);
 
+  MatrixDestroy(x);
 
   return 0;
 }

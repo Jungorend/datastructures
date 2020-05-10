@@ -246,7 +246,7 @@ struct Array* ArrayDifference(struct Array *arr1, struct Array *arr2) {
     if (arr1->A[i] < arr2->A[j]) {
       ArrayAppend(result, arr1->A[i++]);
     } else if (arr2->A[j] < arr1->A[i]) {
-      ArrayAppend(result, arr2->A[j++]);
+      j++;
     } else {
       i++;
       j++;
@@ -254,7 +254,5 @@ struct Array* ArrayDifference(struct Array *arr1, struct Array *arr2) {
   }
   for(; i < arr1->length;i++)
     ArrayAppend(result, arr1->A[i]);
-  for(; j < arr2->length; j++)
-    ArrayAppend(result, arr2->A[j]);
   return result;
 }
